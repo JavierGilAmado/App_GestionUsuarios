@@ -34,9 +34,9 @@ public class View {
         return Integer.parseInt(sc.nextLine());
     }
 
-        public void displayUsers (ArrayList<User> users){
+    public void displayUsers (ArrayList<User> users){
         System.out.println("\n\nOPC 1: Usuarios existentes:\n");
-        if (users.isEmpty()) System.out.println("No hay usuarios registrados");
+        if (users.isEmpty()) System.out.println("No hay usuarios registrados\n\n");
         else{
             for(User u : users){
                 System.out.println(u.toString());
@@ -47,18 +47,6 @@ public class View {
 
     public void showMessage(String msg) {
         System.out.println(msg);
-    }
-
-    public void byeMessage (){
-        System.out.println("Cerrando aplicacion");
-    }
-
-    public void welcomeMessage (){
-        System.out.println("Bienvenido a la aplicación de gestión de usuarios");
-    }
-
-    public void defaultMessage(){
-        System.out.println("Opcion no valida");
     }
 
     public void menu(){
