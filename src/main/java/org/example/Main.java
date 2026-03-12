@@ -1,10 +1,16 @@
 package org.example;
 
+import org.example.controller.UserController;
+import org.example.repository.UserRepository;
+import org.example.repository.UserRepositoryImpl;
+import org.example.view.View;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Usuarios existentes:");
-        System.out.println("ID: 1 - Nombre: Manuel - Apellido: Garcia - Edad: 35");
-        System.out.println("ID: 2 - Nombre: Ana - Apellido: Ruiz - Edad: 38");
-        System.out.println("ID: 3 - Nombre: Pablo - Apellido: Cid - Edad: 28");
+        UserRepository repo = new UserRepositoryImpl(); //Aquí pasamos la implementación
+        View vista = new View();
+
+        UserController controller = new UserController(vista, repo);
+        controller.runApp();
     }
 }
