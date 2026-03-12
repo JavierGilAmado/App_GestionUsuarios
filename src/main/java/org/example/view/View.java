@@ -15,27 +15,27 @@ public class View {
     }
 
     public int askForId() {
-        System.out.print("Introduce el ID: ");
+        System.out.print("\nIntroduce el ID: ");
         return Integer.parseInt(sc.nextLine());
     }
 
     public String askForName() {
-        System.out.print("Introduce el NOMBRE: ");
+        System.out.print("\nIntroduce el NOMBRE: ");
         return sc.nextLine();
     }
 
     public String askForSurname() {
-        System.out.print("Introduce el APELLIDO: ");
+        System.out.print("\nIntroduce el APELLIDO: ");
         return sc.nextLine();
     }
 
     public int askForAge() {
-        System.out.print("Introduce la EDAD: ");
+        System.out.print("\nIntroduce la EDAD: ");
         return Integer.parseInt(sc.nextLine());
     }
 
     public void displayUsers (ArrayList<User> users){
-        System.out.println("\n\nOPC 1: Usuarios existentes:\n");
+        System.out.println("\nOPC 1: Usuarios existentes:\n");
         if (users.isEmpty()) System.out.println("No hay usuarios registrados\n\n");
         else{
             for(User u : users){

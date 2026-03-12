@@ -14,35 +14,34 @@ public class UserController {
     }
 
     public void runApp(){
-        view.welcomeMessage();
+        view.showMessage("\nBienvenido a la aplicacion de gestion de usuarios.\n");
         boolean exit=false;
         int opc;
         while (!exit){
             view.menu();
             try{
                 opc=view.getOption();
+                switch (opc){
+                    case 1:
+                        showUsers();
+                        break;
+
+                    case 2:
+                        addUser();
+                        break;
+
+                    case 3:
+                        view.showMessage("\n\nCerrando aplicacion...\n");
+                        exit=true;
+                        break;
+
+                    default:
+                        view.showMessage("\n\nOpcion no valida\n\n");
+                        break;
+                }
             } catch (NumberFormatException e) {
-                throw new RuntimeException(e);
+                System.out.println("\nDebes introducir un numero\n\n");
             }
-            switch (opc){
-                case 1:
-                    showUsers();
-                    break;
-
-                case 2:
-                    addUser();
-                    break;
-
-                case 3:
-                    view.byeMessage();
-                    exit=true;
-                    break;
-
-                default:
-                    view.defaultMessage();
-                    break;
-            }
-
         }
     }
 
@@ -63,9 +62,9 @@ public class UserController {
             // El controlador le dice al repositorio que lo guarde
             userRepository.addUser(newUser);
 
-            view.showMessage("Usuario añadido con exito.");
+            view.showMessage("\nUsuario añadido con exito.\n\n");
         } catch (NumberFormatException e) {
-            view.showMessage("Error: Debes introducir un numero valido.");
+            view.showMessage("Error: Debes introducir un numero valido.\n\n");
         }
     }
 }
