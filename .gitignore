@@ -37,5 +37,5 @@ build/
 ### Mac OS ###
 .DS_Store
 
-### DATOS DENSIBLES ###
-config.properties
+### Datos Sensibles ###
+src/main/resources/config.properties
