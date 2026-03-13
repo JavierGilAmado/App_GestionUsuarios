@@ -100,7 +100,7 @@ public class UserController {
             userRepository.deleteUser(id);
             view.showMessage("\nUsuario eliminado correctamente.\n");
         } catch (NumberFormatException e) {
-            view.showMessage("Error: Debes introducir un numero valido.\n\n");
+            view.showMessage("Error: Debes introducir un ID valido.\n\n");
         }
     }
 }
