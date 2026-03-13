@@ -22,6 +22,7 @@ public class UserController {
             try{
                 opc=view.getOption();
                 switch (opc){
+
                     case 1:
                         showUsers();
                         break;
@@ -31,6 +32,14 @@ public class UserController {
                         break;
 
                     case 3:
+                        modifyUser();
+                        break;
+
+                    case 4:
+                        deleteUser();
+                        break;
+
+                    case 5:
                         view.showMessage("\n\nCerrando aplicacion...\n");
                         exit=true;
                         break;
@@ -63,6 +72,33 @@ public class UserController {
             userRepository.addUser(newUser);
 
             view.showMessage("\nUsuario añadido con exito.\n\n");
+        } catch (NumberFormatException e) {
+            view.showMessage("Error: Debes introducir un numero valido.\n\n");
+        }
+    }
+
+    public void modifyUser() {
+        try {
+            int id = view.askForId();
+            String name = view.askForName();
+            String surname = view.askForSurname();
+            int age = view.askForAge();
+
+            User updatedUser = new User(id, name, surname, age);
+            userRepository.modifyUser(updatedUser);
+
+            view.showMessage("\nUsuario modificado correctamente.\n");
+
+        } catch (NumberFormatException e) {
+            view.showMessage("Error: Debes introducir un numero valido.\n\n");
+        }
+    }
+
+    public void deleteUser() {
+        try {
+            int id = view.askForId();
+            userRepository.deleteUser(id);
+            view.showMessage("\nUsuario eliminado correctamente.\n");
         } catch (NumberFormatException e) {
             view.showMessage("Error: Debes introducir un numero valido.\n\n");
         }

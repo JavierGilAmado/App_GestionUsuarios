@@ -53,7 +53,9 @@ public class View {
         System.out.println(" - - - MENU - - -");
         System.out.println("1. Ver todos los usuarios");
         System.out.println("2. Añadir usuario");
-        System.out.println("3. Salir");
+        System.out.println("3. Modificar usuario");
+        System.out.println("4. Eliminar usuario");
+        System.out.println("5. Salir");
         System.out.print("\nIntroduce el numero de la opcion: ");
     }
 }
