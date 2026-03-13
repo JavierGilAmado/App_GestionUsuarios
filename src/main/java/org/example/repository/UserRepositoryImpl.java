@@ -19,12 +19,17 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public void modifyUser() {
-        //Implement
+    public void modifyUser(User user) {
+        for (int i = 0; i < usersData.size(); i++) {
+            if (usersData.get(i).getId() == user.getId()) {
+                usersData.set(i, user);
+                return;
+            }
+        }
     }
 
     @Override
-    public void deleteUser() {
-        //Implement
+    public void deleteUser(int id) {
+        usersData.removeIf(user -> user.getId() == id);
     }
 }

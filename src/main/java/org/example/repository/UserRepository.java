@@ -10,7 +10,7 @@ public interface UserRepository {
 
     public void addUser(User newUser);
 
-    public void modifyUser();
+    public void modifyUser(User user);
 
-    public void deleteUser();
+    public void deleteUser(int id);
 }
