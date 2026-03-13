@@ -14,18 +14,15 @@ public class DatabaseConnection {
     private static String PASSWORD;
 
     static {
-        Properties props = new Properties();
-        try (FileInputStream fis = new FileInputStream("./src/main/resources/config.properties")) {
-            props.load(fis);
+        URL = System.getenv("DB_URL");
+        USER = System.getenv("DB_USER");
+        PASSWORD = System.getenv("DB_PASSWORD");
 
-            URL = props.getProperty("db.url");
-            USER = props.getProperty("db.user");
-            PASSWORD = props.getProperty("db.password");
-
-        } catch (IOException e) {
-            throw new RuntimeException("No se pudo cargar config.properties", e);
+        if (URL == null || USER == null || PASSWORD == null) {
+            throw new RuntimeException("Faltan variables de entorno para la base de datos");
         }
     }
+
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
