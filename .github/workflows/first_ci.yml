@@ -34,10 +34,10 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: usersdb
-          MYSQL_USER: app_user
-          MYSQL_PASSWORD: app_password
+          MYSQL_ROOT_PASSWORD: ${{ secrets.CI_DB_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.CI_DB_NAME }}
+          MYSQL_USER: ${{ secrets.CI_DB_USER }}
+          MYSQL_PASSWORD: ${{ secrets.CI_DB_PASSWORD }}
         ports:
           - 3306:3306
         options: >-
@@ -47,9 +47,9 @@ jobs:
           --health-retries=5
 
     env:
-      DB_URL: jdbc:mysql://localhost:3306/usersdb
-      DB_USER: app_user
-      DB_PASSWORD: app_password
+      DB_URL: jdbc:mysql://localhost:3306/${{ secrets.CI_DB_NAME }}
+      DB_USER: ${{ secrets.CI_DB_USER }}
+      DB_PASSWORD: ${{ secrets.CI_DB_PASSWORD }}
 
     steps:
       - name: Checkout repository
