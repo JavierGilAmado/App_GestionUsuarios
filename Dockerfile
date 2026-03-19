@@ -17,8 +17,4 @@ WORKDIR /app
 
 COPY --from=build /app/target/App_GestionUsuarios-1.0-SNAPSHOT.jar app.jar
 
-ENV DB_URL=jdbc:mysql://mysql:3306/usersdb
-ENV DB_USER=user
-ENV DB_PASSWORD=password
-
 ENTRYPOINT ["java", "-jar", "app.jar"]

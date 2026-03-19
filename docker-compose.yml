@@ -4,11 +4,12 @@ services:
   mysql:
     image: mysql:8.0
     container_name: users-mysql
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: usersdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -23,13 +24,16 @@ services:
   app:
     build: .
     container_name: users-app
+    restart: unless-stopped
     depends_on:
       mysql:
         condition: service_healthy
     environment:
-      DB_URL: jdbc:mysql://mysql:3306/usersdb
-      DB_USER: user
-      DB_PASSWORD: password
+      DB_URL: ${DB_URL}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "8080:8080"
     stdin_open: true
     tty: true
 

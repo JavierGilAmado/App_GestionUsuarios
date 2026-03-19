@@ -15,8 +15,8 @@ public class DatabaseConnection {
 
     static {
         URL = System.getenv("DB_URL");
-        USER = System.getenv("DB_USER");
-        PASSWORD = System.getenv("DB_PASSWORD");
+        USER = System.getenv("MYSQL_USER");
+        PASSWORD = System.getenv("MYSQL_PASSWORD");
 
         if (URL == null || USER == null || PASSWORD == null) {
             throw new RuntimeException("Faltan variables de entorno para la base de datos");
