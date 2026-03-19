@@ -14,12 +14,28 @@ public class DatabaseConnection {
     private static String PASSWORD;
 
     static {
-        URL = System.getenv("DB_URL");
-        USER = System.getenv("MYSQL_USER");
-        PASSWORD = System.getenv("MYSQL_PASSWORD");
+        try {
+            Properties props = new Properties();
+            props.load(DatabaseConnection.class
+                    .getClassLoader()
+                    .getResourceAsStream("config.properties"));
 
-        if (URL == null || USER == null || PASSWORD == null) {
-            throw new RuntimeException("Faltan variables de entorno para la base de datos");
+            URL = System.getenv("DB_URL");
+            USER = System.getenv("DB_USER");
+            PASSWORD = System.getenv("DB_PASSWORD");
+
+            // Fallback a properties si no hay ENV
+            if (URL == null) URL = props.getProperty("db.url");
+            if (USER == null) USER = props.getProperty("db.user");
+            if (PASSWORD == null) PASSWORD = props.getProperty("db.password");
+
+            // Último fallback (por si todo falla)
+            if (URL == null) URL = "jdbc:mysql://localhost:3306/user_management";
+            if (USER == null) USER = "root";
+            if (PASSWORD == null) PASSWORD = "root123";
+
+        } catch (IOException e) {
+            throw new RuntimeException("Error cargando configuración", e);
         }
     }
 
