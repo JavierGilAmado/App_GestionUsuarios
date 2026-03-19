@@ -39,3 +39,4 @@ build/
 
 ### Datos Sensibles ###
 src/main/resources/config.properties
+.env
