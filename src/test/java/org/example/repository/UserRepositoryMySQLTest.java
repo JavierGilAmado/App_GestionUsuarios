@@ -25,10 +25,13 @@ class UserRepositoryMySQLTest {
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement()) {
 
+            // Esto asegura que el test no explote si por alguna razón la tabla no está
+            stmt.execute("CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY, name VARCHAR(100), surname VARCHAR(100), age INT)");
             stmt.executeUpdate("DELETE FROM users");
 
         } catch (SQLException e) {
             e.printStackTrace();
+            fail("Error al limpiar la base de datos: " + e.getMessage()); // Esto hará que el test falle con el error real
         }
     }
 

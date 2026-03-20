@@ -53,7 +53,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # CREAMOS EL ARCHIVO CON TU NOMBRE REAL: config.properties
+      # INYECTAMOS EL SQL MANUALMENTE
+      # Usamos el cliente de mysql que ya viene instalado en ubuntu-latest
+      - name: Initialize Database Schema
+        run: |
+          mysql -h 127.0.0.1 -u ${{ secrets.CI_DB_USER }} -p${{ secrets.CI_DB_PASSWORD }} ${{ secrets.CI_DB_NAME }} < init.sql
+
       - name: Create Database Config File
         run: |
           mkdir -p src/main/resources
