@@ -48,6 +48,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 1. Creamos el nombre en minúsculas y lo guardamos bien
+      - name: Set lowercase repository name
+        id: prep
+        run: |
+          REPO_LOWER=$(echo "ghcr.io/${{ github.repository_owner }}/app_gestionusuarios" | tr '[:upper:]' '[:lower:]')
+          echo "image_path=${REPO_LOWER}" >> $GITHUB_OUTPUT
+
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -55,12 +62,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # 2. Usamos el "output" del paso anterior para construir
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          # Forzamos el nombre a minúsculas para evitar errores con Docker
+          # Usamos 'steps.prep.outputs.image_path' que es más fiable que env
           tags: |
-            ghcr.io/${{ github.repository_owner }}/app_gestionusuarios:latest
-            ghcr.io/${{ github.repository_owner }}/app_gestionusuarios:${{ github.sha }}
+            ${{ steps.prep.outputs.image_path }}:1.0
+            ${{ steps.prep.outputs.image_path }}:latest
+            ${{ steps.prep.outputs.image_path }}:${{ github.sha }}
