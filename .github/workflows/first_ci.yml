@@ -37,14 +37,11 @@ jobs:
           MYSQL_PASSWORD: ${{ secrets.CI_DB_PASSWORD }}
         ports:
           - 3306:3306
-        # --- SOLUCION DEL PROBLEMA ---
         options: >-
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
-          -v ${{ github.workspace }}/init.sql:/docker-entrypoint-initdb.d/init.sql
-        # ------------------------------------
 
     steps:
       - name: Checkout repository
@@ -55,6 +52,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+
+      # INYECTAMOS EL SQL MANUALMENTE
+      # Usamos el cliente de mysql que ya viene instalado en ubuntu-latest
+      - name: Initialize Database Schema
+        run: |
+          mysql -h 127.0.0.1 -u ${{ secrets.CI_DB_USER }} -p${{ secrets.CI_DB_PASSWORD }} ${{ secrets.CI_DB_NAME }} < init.sql
 
       - name: Create Database Config File
         run: |
